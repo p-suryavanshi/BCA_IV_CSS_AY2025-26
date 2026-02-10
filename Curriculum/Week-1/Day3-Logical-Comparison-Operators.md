@@ -167,7 +167,135 @@ const canWatch = (hasSeats && hasTickets) && ((userAge >= 18) || hasParent);
 
 ---
 
-## 💻 Practical Session (1h 15min)
+## � MANDATORY PRACTICAL EXPERIMENTS
+
+### ✅ **Experiment 5: JavaScript Program to Swap Two Variables**
+
+**MANDATORY PRACTICAL REQUIREMENT:** Official Experiment #5 (Unit 1)  
+Exchange values of two variables using different techniques.
+
+<details>
+<summary><b>Solution: Method 1 - Using Temporary Variable</b></summary>
+
+```javascript
+/*
+ * Experiment 5: Swap Two Variables (Using temp variable)
+ * Classic approach with temporary storage
+ */
+
+let a = 10;
+let b = 20;
+
+console.log("Before swap:");
+console.log("a = " + a + ", b = " + b);
+
+// Swapping with temporary variable
+let temp = a;
+a = b;
+b = temp;
+
+console.log("\nAfter swap:");
+console.log("a = " + a + ", b = " + b);
+
+// TEST CASES
+console.log("\n--- Test Case 1: Swap numbers ---");
+let num1 = 100;
+let num2 = 200;
+console.log("Before: num1 = " + num1 + ", num2 = " + num2);
+
+let tempVar = num1;
+num1 = num2;
+num2 = tempVar;
+
+console.log("After: num1 = " + num1 + ", num2 = " + num2);
+
+console.log("\n--- Test Case 2: Swap strings ---");
+let name1 = "Alice";
+let name2 = "Bob";
+console.log("Before: name1 = " + name1 + ", name2 = " + name2);
+
+let tempName = name1;
+name1 = name2;
+name2 = tempName;
+
+console.log("After: name1 = " + name1 + ", name2 = " + name2);
+
+console.log("\n--- Test Case 3: Swap booleans ---");
+let flag1 = true;
+let flag2 = false;
+console.log("Before: flag1 = " + flag1 + ", flag2 = " + flag2);
+
+let tempFlag = flag1;
+flag1 = flag2;
+flag2 = tempFlag;
+
+console.log("After: flag1 = " + flag1 + ", flag2 = " + flag2);
+```
+
+</details>
+
+<details>
+<summary><b>Solution: Method 2 - Using Destructuring Assignment</b></summary>
+
+```javascript
+/*
+ * Experiment 5: Swap Two Variables (Using destructuring - Modern approach)
+ * Elegant one-liner using ES6 destructuring
+ */
+
+let a = 10;
+let b = 20;
+
+console.log("Before swap:");
+console.log("a = " + a + ", b = " + b);
+
+// Swapping with destructuring
+[a, b] = [b, a];
+
+console.log("\nAfter swap:");
+console.log("a = " + a + ", b = " + b);
+
+// TEST CASES
+console.log("\n--- Test Case 1: Swap numbers ---");
+let num1 = 100;
+let num2 = 200;
+console.log("Before: num1 = " + num1 + ", num2 = " + num2);
+
+[num1, num2] = [num2, num1];
+
+console.log("After: num1 = " + num1 + ", num2 = " + num2);
+
+console.log("\n--- Test Case 2: Swap strings ---");
+let name1 = "Alice";
+let name2 = "Bob";
+console.log("Before: name1 = " + name1 + ", name2 = " + name2);
+
+[name1, name2] = [name2, name1];
+
+console.log("After: name1 = " + name1 + ", name2 = " + name2);
+
+console.log("\n--- Test Case 3: Multiple swaps ---");
+let x = 1;
+let y = 2;
+let z = 3;
+console.log("Before: x = " + x + ", y = " + y + ", z = " + z);
+
+[x, y, z] = [z, x, y];  // Rotate values
+
+console.log("After: x = " + x + ", y = " + y + ", z = " + z);
+```
+
+</details>
+
+**Key Learning Points:**
+- Temporary variable method (Method 1) works in all scenarios
+- Destructuring (Method 2) is cleaner and more modern (ES6+)
+- Destructuring can swap multiple variables at once
+- Both achieve the same result - exchanging values
+
+---
+
+## �💻 Practical Session (1h 15min)
 
 ### Exercise 3.1: Comparison Operators
 
