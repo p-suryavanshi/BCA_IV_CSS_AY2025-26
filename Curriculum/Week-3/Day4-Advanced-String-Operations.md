@@ -452,13 +452,142 @@ const onlyLetters = text.replace(/[0-9]/g, "");
 
 ---
 
+## 📝 Experiment 14: Convert the First Letter of a String into Uppercase
+
+**Objective:** Capitalize the first character of a string (Title Case)  
+**Mandatory Practical Requirement:** Official Experiment #14 (Unit 3)  
+**Learning:** String character manipulation and substring extraction
+
+<details>
+  <summary><strong>Click to reveal solutions</strong></summary>
+
+### Method 1: Manual Character Extraction (Without Built-ins)
+
+```javascript
+// Experiment 14: Capitalize first letter
+// Method 1: Manual substring operations
+
+function capitalizeFirst(str) {
+    if (str.length === 0) {
+        return str;  // Empty string
+    }
+    
+    // Get first character and convert manually
+    const firstChar = str[0];
+    
+    // Check if lowercase (a-z)
+    let upperFirst = "";
+    if (firstChar >= "a" && firstChar <= "z") {
+        // Convert by using ASCII: 'a' is 97, 'A' is 65 (difference of 32)
+        // But simpler: just build uppercase manually
+        const charCode = firstChar.charCodeAt(0) - 32;
+        upperFirst = String.fromCharCode(charCode);
+    } else {
+        upperFirst = firstChar;  // Already uppercase or not a letter
+    }
+    
+    // Combine with rest of string
+    const restOfString = str.substring(1);  // From index 1 to end
+    
+    return upperFirst + restOfString;
+}
+
+console.log(capitalizeFirst("hello world"));  // "Hello world"
+console.log(capitalizeFirst("javascript"));   // "Javascript"
+console.log(capitalizeFirst("a"));           // "A"
+console.log(capitalizeFirst(""));            // ""
+```
+
+### Method 2: Using String Methods (Smart Way)
+
+```javascript
+// Experiment 14: Capitalize using built-in methods
+// Method 2: toUpperCase() and slice()
+
+function capitalizeFirst(str) {
+    if (str.length === 0) return str;
+    
+    return str[0].toUpperCase() + str.slice(1);
+}
+
+// Or even more concise:
+const capitalize = (str) => str[0].toUpperCase() + str.slice(1);
+
+// With error handling:
+const capitalizeStrict = (str) => {
+    if (typeof str !== "string" || str.length === 0) return str;
+    return str[0].toUpperCase() + str.slice(1);
+};
+
+console.log(capitalize("hello world"));      // "Hello world"
+console.log(capitalize("javascript"));       // "Javascript"
+console.log(capitalize("the quick brown")); // "The quick brown"
+
+// Capitalize all words (Title Case)
+const titleCase = (str) => str
+    .split(" ")
+    .map(word => word[0].toUpperCase() + word.slice(1))
+    .join(" ");
+
+console.log(titleCase("the quick brown fox"));  // "The Quick Brown Fox"
+```
+
+### Test Cases
+
+```javascript
+// Comprehensive capitalization tests
+const testCases = [
+    { str: "hello", expected: "Hello" },
+    { str: "javascript", expected: "Javascript" },
+    { str: "a", expected: "A" },
+    { str: "HELLO", expected: "HELLO" },
+    { str: "Hello", expected: "Hello" },
+    { str: "123abc", expected: "123abc" },
+    { str: "", expected: "" },
+];
+
+console.log("Capitalization Tests:");
+console.log("String | Expected | Got | Match");
+console.log("--------|----------|-----|------");
+
+testCases.forEach(test => {
+    // Using built-in method
+    const result = test.str.length > 0 
+        ? test.str[0].toUpperCase() + test.str.slice(1)
+        : test.str;
+    const match = result === test.expected ? "✓" : "✗";
+    console.log(test.str + " | " + test.expected + " | " + result + " | " + match);
+});
+
+// Bonus: Title Case Example
+console.log("\nTitle Case Examples:");
+const sentences = [
+    "the quick brown fox jumps over the lazy dog",
+    "javascript is awesome",
+    "hello world",
+];
+
+sentences.forEach(sentence => {
+    const titleCased = sentence
+        .split(" ")
+        .map(word => word.length > 0 ? word[0].toUpperCase() + word.slice(1) : word)
+        .join(" ");
+    console.log(sentence + " -> " + titleCased);
+});
+```
+
+</details>
+
+---
+
 ## ✅ Checklist
 
 - [ ] Understand multiple reversal methods
 - [ ] Can capitalize properly
 - [ ] Know title case transformation
+- [ ] Completed Experiment 14 (Capitalize First Letter)
 - [ ] Completed Experiment 15 (Reverse)
-- [ ] Completed Experiment 16 (Capitalize)
+- [ ] Completed Experiment 16 (more reversals)
 - [ ] Completed Exercises 4.4-4.5
 - [ ] Built text processing toolkit
 - [ ] Challenge questions attempted
