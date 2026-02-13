@@ -557,6 +557,176 @@ Headphones      1   3   ₹14950.00
 
 ---
 
+## 🔬 MANDATORY PRACTICAL EXPERIMENTS
+
+### ✅ **Experiment 18: JavaScript Program to Create Countdown Timer**
+
+**MANDATORY PRACTICAL REQUIREMENT:** Official Experiment #18 (Unit 4)
+
+Create a countdown timer that starts at N seconds and counts down to zero, displaying remaining time.
+
+<details>
+<summary><b>Solution: Method 1 - Using setInterval Loop</b></summary>
+
+```javascript
+/*
+ * Experiment 18: Countdown Timer (Using setInterval)
+ * Counts down from N seconds to 0
+ */
+
+function countdownTimer(seconds) {
+    let remaining = seconds;
+    
+    console.log("Starting countdown from " + seconds + " seconds...\n");
+    
+    const intervalId = setInterval(function() {
+        // Calculate minutes and seconds
+        const mins = Math.floor(remaining / 60);
+        const secs = remaining % 60;
+        
+        // Pad with zeros for display
+        const displayMins = mins < 10 ? "0" + mins : mins;
+        const displaySecs = secs < 10 ? "0" + secs : secs;
+        
+        // Display countdown
+        console.log("Time remaining: " + displayMins + ":" + displaySecs);
+        
+        // Decrement counter
+        remaining--;
+        
+        // Stop when reaching 0
+        if (remaining < 0) {
+            clearInterval(intervalId);
+            console.log("\n⏰ Time's up!");
+        }
+    }, 1000);  // Update every 1000 milliseconds (1 second)
+}
+
+// TEST CASES
+console.log("--- Test Case 1: 10 seconds ---");
+countdownTimer(10);
+
+// Test Case 2: 25 seconds (would show as 00:25)
+// countdownTimer(25);
+
+// Test Case 3: 1 minute 30 seconds (90 seconds)
+// countdownTimer(90);
+```
+
+**Output Example:**
+```
+--- Test Case 1: 10 seconds ---
+Starting countdown from 10 seconds...
+
+Time remaining: 00:10
+Time remaining: 00:09
+Time remaining: 00:08
+Time remaining: 00:07
+Time remaining: 00:06
+Time remaining: 00:05
+Time remaining: 00:04
+Time remaining: 00:03
+Time remaining: 00:02
+Time remaining: 00:01
+
+⏰ Time's up!
+```
+
+</details>
+
+<details>
+<summary><b>Solution: Method 2 - Using setTimeout (Recursive)</b></summary>
+
+```javascript
+/*
+ * Experiment 18: Countdown Timer (Using setTimeout recursively)
+ * Cleaner approach with recursive function
+ */
+
+function countdownTimer(seconds) {
+    function tick(remaining) {
+        if (remaining >= 0) {
+            // Calculate minutes and seconds
+            const mins = Math.floor(remaining / 60);
+            const secs = remaining % 60;
+            
+            // Format with leading zeros
+            const displayMins = String(mins).padStart(2, '0');
+            const displaySecs = String(secs).padStart(2, '0');
+            
+            // Display
+            if (remaining === seconds) {
+                console.log("Starting countdown from " + seconds + " seconds...\n");
+            }
+            console.log("Time remaining: " + displayMins + ":" + displaySecs);
+            
+            // Schedule next tick
+            if (remaining > 0) {
+                setTimeout(() => tick(remaining - 1), 1000);
+            } else {
+                console.log("\n⏰ Time's up!");
+            }
+        }
+    }
+    
+    tick(seconds);
+}
+
+// TEST CASES
+console.log("--- Test Case 1: 5 seconds ---");
+countdownTimer(5);
+
+// Test Case 2: 65 seconds (1 min 5 sec)
+// countdownTimer(65);
+
+// Can also use with stopwatch format
+function timerWithMessage(seconds, message) {
+    function tick(remaining) {
+        const mins = Math.floor(remaining / 60);
+        const secs = remaining % 60;
+        const display = String(mins).padStart(2, '0') + ":" + String(secs).padStart(2, '0');
+        
+        console.log(display + " - " + message);
+        
+        if (remaining > 0) {
+            setTimeout(() => tick(remaining - 1), 1000);
+        } else {
+            console.log("✓ " + message + " completed!");
+        }
+    }
+    tick(seconds);
+}
+
+// Usage example  
+// timerWithMessage(10, "Studying");
+```
+
+**Output Example:**
+```
+--- Test Case 1: 5 seconds ---
+Starting countdown from 5 seconds...
+
+Time remaining: 00:05
+Time remaining: 00:04
+Time remaining: 00:03
+Time remaining: 00:02
+Time remaining: 00:01
+
+⏰ Time's up!
+```
+
+</details>
+
+**Key Learning Points:**
+- `setInterval()` (Method 1) runs code repeatedly at fixed intervals
+- `setTimeout()` (Method 2) schedules code to run once, after delay
+- `clearInterval()` stops a repeating interval
+- `padStart()` or manual padding adds leading zeros for formatting
+- `Math.floor()` converts seconds to minutes
+- Method 2 is cleaner and more flexible
+
+---
+
 ## 🎯 Week 4 Concepts Integrated
 
 ✅ **map()** - Enriching transactions with calculated fields
@@ -564,6 +734,7 @@ Headphones      1   3   ₹14950.00
 ✅ **reduce()** - Aggregating totals and grouping data
 ✅ **sort()** - Ranking by revenue
 ✅ **Date handling** - Analyzing date-based trends
+✅ **Timers** - Scheduling and countdown operations
 ✅ **Array methods** - Merging, deduplicating, sorting objects
 
 ---
@@ -597,6 +768,78 @@ Headphones      1   3   ₹14950.00
 - [x] Experiment 20: Remove Specific Item from Array ✅
 - [x] Experiment 21: Merge Arrays and Remove Duplicates ✅
 - [x] Experiment 22: Sort Array of Objects ✅
+
+---
+
+## 📖 Week 4 Terminology Reference
+
+This table lists all technical terms introduced in Week 4, when they were first defined, and their definitions.
+
+| Term | Day Introduced | Definition | Example |
+|------|----------------|------------|---------|
+| **Abstraction** | Day 1 | Hiding complex details behind a simpler interface | `console.log()` hides pixel rendering |
+| **Higher-order function** | Day 1 | Function that takes functions as arguments or returns functions | `array.map(fn)` |
+| **Callback** | Day 1 | Function passed to another function to be called later | `processArray(arr, callback)` |
+| **Unicode** | Day 1 | Universal character encoding standard assigning unique numbers to characters | Includes Latin, Arabic, Chinese, emojis |
+| **Character code** | Day 1 | Numeric value representing a character in UTF-16 encoding | "A" has code 65 |
+| **Code point** | Day 1 | Unique numeric identifier for a character in Unicode | "🐴" has code point 128052 |
+| **Aggregation** | Day 2 | Combining multiple values into a single result | Summing array elements |
+| **Accumulator** | Day 2 | Running result that gets updated each iteration in reduce() | Starts at initial value, builds result |
+| **Script (writing system)** | Day 2 | A writing system like Latin, Devanagari, Arabic, etc. | SCRIPTS dataset |
+| **Composability** | Day 2, Day 5 | Ability to combine simple functions to build complex operations | Chaining map, filter, reduce |
+| **Timestamp** | Day 3 | Milliseconds since January 1, 1970 00:00:00 UTC | `Date.now()` returns timestamp |
+| **Set** | Day 4 | JavaScript object storing unique values, auto-removes duplicates | `new Set([1, 2, 2])` becomes `{1, 2}` |
+| **Comparator** | Day 4 | Function defining sort order by comparing two elements | `(a, b) => a - b` for ascending |
+| **Pipeline** | Day 5 | Series of data transformations chained together | filter → map → reduce |
+
+---
+
+## 🗺️ Week 4 Content Organization Map
+
+Understanding how each day's content connects:
+
+```
+Day 1: Higher-Order Functions & map()
+    ↓ Foundation: Functions as values, callbacks
+    ├─→ Abstraction concept
+    ├─→ map() for transformation
+    └─→ Character codes and Unicode
+
+Day 2: filter() and reduce()
+    ↓ Build on: map() from Day 1
+    ├─→ filter() for selection
+    ├─→ reduce() for aggregation
+    ├─→ Combining all three methods
+    └─→ Script data set (real-world example)
+
+Day 3: Date & Time Operations
+    ↓ Practical Application: Using higher-order functions
+    ├─→ Date object and methods
+    ├─→ Timers (setTimeout, setInterval)
+    ├─→ Experiments 17-19
+    └─→ Real-world: Clock & countdown timer
+
+Day 4: Advanced Array Operations
+    ↓ Apply: All array methods together
+    ├─→ Removing elements (filter, splice)
+    ├─→ Merging arrays (concat, spread)
+    ├─→ Removing duplicates (Set, filter)
+    ├─→ Sorting (sort with comparators)
+    └─→ Experiments 20-22
+
+Day 5: Data Processing Pipeline & Integration
+    ↓ Synthesize: Everything from Week 4
+    ├─→ Complete data pipeline concept
+    ├─→ Error handling in pipelines
+    ├─→ Composability deep dive
+    ├─→ Text recognition (Unicode + SCRIPTS)
+    └─→ Final Integration Project: E-Commerce Dashboard
+```
+
+**Key Progression:**
+1. **Learn individual methods** (Days 1-2): map, filter, reduce
+2. **Apply to real operations** (Days 3-4): Dates, arrays, sorting
+3. **Integrate everything** (Day 5): Complete pipeline system
 
 ---
 

@@ -97,7 +97,9 @@ users.filter(u => u.age >= 18 && u.city === "New York");
 
 ### 3. Introduction to reduce()
 
-The **reduce()** method processes array elements and returns a SINGLE value.
+**Aggregation**: The process of combining multiple values into a single result. In programming, aggregation operations take a collection of data (like an array) and produce a summary (like a sum, average, count, or grouped object). The reduce() method is the primary tool for aggregation in JavaScript.
+
+The **reduce()** method processes array elements and returns a SINGLE value through aggregation.
 
 **Syntax:**
 ```javascript
@@ -563,6 +565,172 @@ Average by subject:
 Highest marks: Diana (95)
 Lowest marks: Frank (72)
 ```
+
+---
+
+## 🔬 MANDATORY PRACTICAL EXPERIMENTS
+
+### ✅ **Experiment 19: JavaScript Program to Remove Specific Item from an Array**
+
+**MANDATORY PRACTICAL REQUIREMENT:** Official Experiment #19 (Unit 4)
+
+Remove a specific element from an array based on value or index.
+
+<details>
+<summary><b>Solution: Method 1 - Using splice() with Manual Index Search</b></summary>
+
+```javascript
+/*
+ * Experiment 19: Remove Specific Item from Array (Using splice)
+ * Remove item by value or index
+ */
+
+function removeByValue(array, value) {
+    // Find the index of the value
+    const index = array.indexOf(value);
+    
+    // If found, remove it using splice
+    if (index > -1) {
+        array.splice(index, 1);  // Remove 1 element at index
+        console.log("Removed '" + value + "' at index " + index);
+        return true;
+    } else {
+        console.log("Value '" + value + "' not found");
+        return false;
+    }
+}
+
+function removeByIndex(array, index) {
+    if (index >= 0 && index < array.length) {
+        const removed = array.splice(index, 1);
+        console.log("Removed element at index " + index + ": " + removed[0]);
+        return true;
+    } else {
+        console.log("Invalid index: " + index);
+        return false;
+    }
+}
+
+// TEST CASES
+console.log("--- Test Case 1: Remove by value ---");
+let fruits = ["apple", "banana", "orange", "banana", "grape"];
+console.log("Original: " + fruits);
+removeByValue(fruits, "orange");
+console.log("After removal: " + fruits);
+
+console.log("\n--- Test Case 2: Remove by index ---");
+let numbers = [10, 20, 30, 40, 50];
+console.log("Original: " + numbers);
+removeByIndex(numbers, 2);
+console.log("After removal: " + numbers);
+
+console.log("\n--- Test Case 3: Item not found ---");
+let colors = ["red", "green", "blue"];
+removeByValue(colors, "yellow");
+```
+
+**Output:**
+```
+--- Test Case 1: Remove by value ---
+Original: apple,banana,orange,banana,grape
+Removed 'orange' at index 2
+After removal: apple,banana,banana,grape
+
+--- Test Case 2: Remove by index ---
+Original: 10,20,30,40,50
+Removed element at index 2: 30
+After removal: 10,20,40,50
+
+--- Test Case 3: Item not found ---
+Value 'yellow' not found
+```
+
+</details>
+
+<details>
+<summary><b>Solution: Method 2 - Using filter() (Non-destructive)</b></summary>
+
+```javascript
+/*
+ * Experiment 19: Remove Specific Item (Using filter - creates new array)
+ * Better approach: doesn't modify original, returns new array
+ */
+
+function removeByValue(array, value) {
+    // filter() creates NEW array without the matching element
+    return array.filter(item => item !== value);
+}
+
+function removeByIndex(array, index) {
+    // filter() with index parameter
+    return array.filter((item, i) => i !== index);
+}
+
+function removeMultiple(array, value) {
+    // Removes ALL occurrences (not just first)
+    return array.filter(item => item !== value);
+}
+
+function removeIf(array, condition) {
+    // Remove if condition is true
+    return array.filter(item => !condition(item));
+}
+
+// TEST CASES
+console.log("--- Test Case 1: Remove by value ---");
+const fruits = ["apple", "banana", "orange", "banana", "grape"];
+console.log("Original: " + fruits);
+const result1 = removeByValue(fruits, "banana");
+console.log("After removal: " + result1);
+console.log("Original unchanged: " + fruits);
+
+console.log("\n--- Test Case 2: Remove by index ---");
+const numbers = [10, 20, 30, 40, 50];
+console.log("Original: " + numbers);
+const result2 = removeByIndex(numbers, 2);
+console.log("After removal: " + result2);
+
+console.log("\n--- Test Case 3: Remove ALL duplicates ---");
+const items = ["a", "b", "a", "c", "a"];
+console.log("Original: " + items);
+const result3 = removeMultiple(items, "a");
+console.log("Without 'a': " + result3);
+
+console.log("\n--- Test Case 4: Remove if condition ---");
+const temps = [5, 32, -10, 25, -5];
+const aboveZero = removeIf(temps, t => t < 0);
+console.log("Original temps: " + temps);
+console.log("Above zero: " + aboveZero);
+```
+
+**Output:**
+```
+--- Test Case 1: Remove by value ---
+Original: apple,banana,orange,banana,grape
+After removal: apple,orange,grape
+Original unchanged: apple,banana,orange,banana,grape
+
+--- Test Case 2: Remove by index ---
+Original: 10,20,30,40,50
+After removal: 10,20,40,50
+
+--- Test Case 3: Remove ALL duplicates ---
+Original: a,b,a,c,a
+Without 'a': b,c
+
+--- Test Case 4: Remove if condition ---
+Original temps: 5,32,-10,25,-5
+Above zero: 32,25
+```
+
+</details>
+
+**Key Learning Points:**
+- `splice()` (Method 1) modifies the original array
+- `filter()` (Method 2) creates a new array, doesn't modify original
+- `indexOf()` finds the index of first occurrence
+- `filter()` with condition function is more flexible
+- Both methods have valid use cases
 
 ---
 

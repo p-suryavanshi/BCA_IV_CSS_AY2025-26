@@ -281,6 +281,14 @@ console.log(userInfo);
 
 ### 7. Strings and Character Codes
 
+Before working with character codes, let's define some key terms:
+
+**Unicode**: A universal character encoding standard that assigns a unique number to every character in virtually every writing system in the world. Unicode includes letters from Latin, Devanagari, Arabic, Chinese, and all other scripts, plus emojis, mathematical symbols, and more. It's what allows JavaScript to handle text in any language.
+
+**Character code** (or **code unit**): A numeric value representing a character in a specific encoding. In JavaScript strings, characters are stored using UTF-16 encoding, where most common characters use one 16-bit code unit.
+
+**Code point**: The unique numeric identifier assigned to a character in the Unicode standard. For example, the letter "A" has code point 65, "€" has code point 8364, and the emoji "🐴" has code point 128052. Some characters (like emojis) require multiple code units but have a single code point.
+
 Strings in JavaScript are sequences of **Unicode characters**. Each character has a numeric code called a **code point** — a unique number assigned to every character in the Unicode standard (which covers characters from virtually every writing system in the world).
 
 #### Character Codes
@@ -624,7 +632,203 @@ const doubled = numbers.map(() => 2);     // ❌ Ignores each element
 
 ---
 
-## 📚 Summary Table
+## � MANDATORY PRACTICAL EXPERIMENTS
+
+### ✅ **Experiment 15: JavaScript Program to Display Date and Time**
+
+**MANDATORY PRACTICAL REQUIREMENT:** Official Experiment #15 (Unit 4)
+
+Display the current date and time in various formats using JavaScript's `Date` object.
+
+<details>
+<summary><b>Solution: Method 1 - Manual Formatting (No Built-ins)</b></summary>
+
+```javascript
+/*
+ * Experiment 15: Display Date and Time (Manual approach)
+ * Display date and time in various custom formats
+ */
+
+// Create a date object for current time
+const now = new Date();
+
+// Manual extraction of date/time components
+const year = now.getFullYear();
+const month = now.getMonth() + 1;  // getMonth() returns 0-11, add 1
+const date = now.getDate();
+const hours = now.getHours();
+const minutes = now.getMinutes();
+const seconds = now.getSeconds();
+
+// Format with manual padding (add leading zero)
+const paddedMonth = month < 10 ? "0" + month : month;
+const paddedDate = date < 10 ? "0" + date : date;
+const paddedHours = hours < 10 ? "0" + hours : hours;
+const paddedMinutes = minutes < 10 ? "0" + minutes : minutes;
+const paddedSeconds = seconds < 10 ? "0" + seconds : seconds;
+
+// Display various formats
+console.log("Date: " + year + "-" + paddedMonth + "-" + paddedDate);
+console.log("Time: " + paddedHours + ":" + paddedMinutes + ":" + paddedSeconds);
+console.log("Full: " + paddedDate + "/" + paddedMonth + "/" + year + " " + paddedHours + ":" + paddedMinutes);
+
+// TEST CASES
+console.log("\n--- Test Cases ---");
+// Output format: YYYY-MM-DD HH:MM:SS
+// (Output will vary based on current date/time)
+```
+
+</details>
+
+<details>
+<summary><b>Solution: Method 2 - Using Date Methods (Smart Approach)</b></summary>
+
+```javascript
+/*
+ * Experiment 15: Display Date and Time (Smart approach)
+ * Using JavaScript Date object methods for formatting
+ */
+
+const now = new Date();
+
+// Using toLocaleDateString() and toLocaleTimeString()
+console.log("Date: " + now.toLocaleDateString());
+console.log("Time: " + now.toLocaleTimeString());
+console.log("Full: " + now.toLocaleString());
+
+// Alternative: toString() method
+console.log("\nUsing toString():");
+console.log(now.toString());
+
+// Using toISOString() for standardized format
+console.log("\nISO Format: " + now.toISOString());
+
+// Custom format: Day, Month Date, Year Time
+const options = {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit'
+};
+console.log("\nCustom Format: " + now.toLocaleString('en-US', options));
+
+// TEST CASES
+console.log("\n--- Test Cases ---");
+console.log("Current Date: " + now.toLocaleDateString());
+console.log("Current Time: " + now.toLocaleTimeString());
+console.log("ISO Format: " + now.toISOString());
+```
+
+</details>
+
+**Key Learning Points:**
+- Use `new Date()` to create date object for current time
+- `getFullYear()`, `getMonth()`, `getDate()` extract date components
+- `getHours()`, `getMinutes()`, `getSeconds()` extract time components
+- Method 2 is preferred: uses built-in formatting methods
+
+---
+
+### ✅ **Experiment 17: JavaScript Program to Display Current Date**
+
+**MANDATORY PRACTICAL REQUIREMENT:** Official Experiment #17 (Unit 4)
+
+Display the current date in different formats (DD/MM/YYYY, MM/DD/YYYY, YYYY-MM-DD, etc.)
+
+<details>
+<summary><b>Solution: Method 1 - Manual Component Extraction</b></summary>
+
+```javascript
+/*
+ * Experiment 17: Display Current Date (Manual approach)
+ * Extract date components manually and format them
+ */
+
+const date = new Date();
+
+// Extract components
+const day = date.getDate();
+const month = date.getMonth() + 1;
+const year = date.getFullYear();
+
+// Pad single digits with leading zero
+function padZero(num) {
+    return num < 10 ? "0" + num : num;
+}
+
+// Various date formats
+console.log("Format 1 (DD/MM/YYYY): " + padZero(day) + "/" + padZero(month) + "/" + year);
+console.log("Format 2 (MM/DD/YYYY): " + padZero(month) + "/" + padZero(day) + "/" + year);
+console.log("Format 3 (YYYY-MM-DD): " + year + "-" + padZero(month) + "-" + padZero(day));
+console.log("Format 4 (DD-Mon-YYYY): " + padZero(day) + "-" + getMonthName(month - 1) + "-" + year);
+
+// Helper function to get month name
+function getMonthName(monthIndex) {
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    return months[monthIndex];
+}
+
+// TEST CASES
+console.log("\n--- Test Cases ---");
+console.log("Today's Date (DD/MM/YYYY): " + padZero(day) + "/" + padZero(month) + "/" + year);
+```
+
+</details>
+
+<details>
+<summary><b>Solution: Method 2 - Using toLocaleDateString()</b></summary>
+
+```javascript
+/*
+ * Experiment 17: Display Current Date (Smart approach)
+ * Using JavaScript's built-in date formatting
+ */
+
+const date = new Date();
+
+// Method 2a: Using toLocaleDateString() with options
+const options1 = { year: 'numeric', month: '2-digit', day: '2-digit' };
+console.log("Format 1 (MM/DD/YYYY): " + date.toLocaleDateString('en-US', options1));
+
+const options2 = { year: 'numeric', month: '2-digit', day: '2-digit' };
+console.log("Format 2 (DD/MM/YYYY): " + date.toLocaleDateString('en-GB', options2));
+
+// Method 2b: Using toLocaleDateString() without options
+console.log("Format 3 (Default): " + date.toLocaleDateString());
+
+// Method 2c: Using toDateString() 
+console.log("Format 4 (String): " + date.toDateString());
+
+// Method 2d: Using custom format with Intl.DateTimeFormat
+const formatter = new Intl.DateTimeFormat('en-GB', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+});
+console.log("Format 5 (Day Month Year): " + formatter.format(date));
+
+// TEST CASES
+console.log("\n--- Test Cases ---");
+console.log("Today (MM/DD/YYYY): " + date.toLocaleDateString('en-US'));
+console.log("Today (DD/MM/YYYY): " + date.toLocaleDateString('en-GB'));
+console.log("Today's String: " + date.toDateString());
+```
+
+</details>
+
+**Key Learning Points:**
+- `getDate()`, `getMonth()`, `getFullYear()` get individual components
+- `toLocaleDateString()` provides locale-specific formatting
+- `toDateString()` provides a standardized string representation
+- Method 2 is cleaner and handles locale automatically
+
+---
+
+## �📚 Summary Table
 
 | Concept | Description | Example |
 |---------|-------------|---------|
