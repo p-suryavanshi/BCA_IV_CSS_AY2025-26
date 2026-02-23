@@ -68,43 +68,130 @@ git remote -v
 ## Syncing Your Fork with the Official Repository
 
 ### Why Sync?
-If your forked repository is behind the official Mandsaur University repository, you need to update (sync) it to get the latest changes.
+When you fork a repository, your fork will not automatically receive updates from the original ("upstream") repository. To keep your fork up to date with the latest changes from the university repo, you need to manually sync it. Note: The command `git status` will NOT show if your fork is behind the upstream repository.
 
-### Step-by-Step: Check and Sync
+### How to Check and Sync Your Fork
 
-#### 1. Check if Your Fork is Behind
+#### 1. Fetch Latest Changes from Upstream
 
-Open PowerShell and run:
+First, make sure you have the upstream remote set:
+
+```bash
+git remote -v
+```
+You should see both `origin` (your fork) and `upstream` (the university repo). If not, add upstream:
+
+```bash
+git remote add upstream https://github.com/MandsaurUniversity/BCA_IV_CSS_AY2025-26.git
+```
+
+Now fetch the latest changes from upstream:
 
 ```bash
 git fetch upstream
-git status
 ```
 
-If you see messages like "Your branch is behind 'upstream/main' by X commits", your fork needs updating.
+#### 2. Check if Your Local Branch is Behind Upstream
 
-#### 2. Merge Latest Changes from Upstream
+To see if your local branch is behind the university repo, use:
+
+```bash
+git log HEAD..upstream/main --oneline
+```
+If you see a list of commits, your fork is behind and needs to be updated. If nothing is shown, your fork is up to date.
+
+You can also see file differences with:
+
+```bash
+git diff HEAD upstream/main
+```
+
+#### 3. Merge Latest Changes from Upstream
+
+Switch to your main branch (if not already on it):
 
 ```bash
 git checkout main
+```
+Merge the changes:
+
+```bash
 git merge upstream/main
 ```
 
-This brings the latest changes from the university repo into your fork.
-
-#### 3. Push Updates to Your Fork on GitHub
+#### 4. Push Updates to Your Fork on GitHub
 
 ```bash
 git push origin main
 ```
 
-Now your fork is up to date with the official repository.
-
 #### Example
-
 Suppose the university repo added new files in `ClassWork/Week-1/Day2-xxx.md`. After syncing, you will have these files in your fork as well.
 
+---
+
 #### Troubleshooting
+
+
+### Handling GitHub Authentication Issues When Pushing
+
+Sometimes, when you push changes to your fork, you may see a 'permission denied' or 'remote rejected' error. This is usually due to authentication issues. Here’s how to resolve them:
+
+#### 1. First-Time Users (Not Logged In via CLI)
+
+If you have never logged in to GitHub from the command line:
+
+- When you push for the first time, Git will prompt you for your GitHub username and password.
+- **Note:** GitHub no longer accepts account passwords for HTTPS authentication. You must use a Personal Access Token (PAT) instead of your password.
+
+**Steps:**
+1. Go to GitHub → Settings → Developer settings → Personal access tokens.
+2. Generate a new token (with repo permissions).
+3. When prompted for password, paste your token.
+
+#### 2. Switching Users (Authenticated as Wrong User)
+
+If you are logged in as a different user or want to change credentials:
+
+**Option A: Use Git Credential Manager (Recommended)**
+1. Run:
+	```bash
+	git config --global credential.helper manager-core
+	```
+2. Next time you push, you’ll be prompted for credentials. Enter your correct GitHub username and PAT.
+
+**Option B: Clear Saved Credentials for This Repo**
+1. Run:
+	```bash
+	git credential reject
+	```
+	When prompted, enter:
+	```
+	protocol=https
+	host=github.com
+	```
+2. Next push will prompt for new credentials.
+
+**Option C: Save Credentials Locally for This Repo**
+1. To save credentials only for this repo:
+	```bash
+	git config credential.helper store
+	```
+2. When you push, enter your correct username and PAT. Credentials will be saved in a `.git-credentials` file in your repo directory.
+
+**To Check Current User:**
+```bash
+git config user.name
+git config user.email
+```
+
+**To Change User for This Repo:**
+```bash
+git config user.name "Your Name"
+git config user.email "your@email.com"
+```
+
+---
 
 If you see conflicts, resolve them in your editor, then:
 
